@@ -25,9 +25,10 @@ class Game
       # puts source
 
       if @cage.game_over?(source)
-        winner = @cage.game_over?
-
+        winner = @cage.game_over?(source)
+        @cage.pretty_print
         puts "\nWINNER: #{winner}"
+        break
       end
     end
   end

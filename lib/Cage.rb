@@ -19,7 +19,6 @@ class Cage
   end
 
   def game_over?(source)
-
     if horizontal_check(source)
       return source[2]
     elsif vertical_check(source)
@@ -59,43 +58,48 @@ class Cage
 
   def left_diag_check(source)
     row, col, coin = source
-    diag = ""
+    rows, cols = @cage.length, @cage[0].length
 
-    while row >= 0 and col >= 0
-      row -= 1
-      col -= 1
+    # Check diagonals going up and to the left
+    (0..rows-4).each do |start_row|
+      (3..cols-1).each do |start_col|
+        diagonal = (0..3).map { |i| @cage[start_row + i][start_col - i] }.join
+        return true if diagonal == coin * 4
+      end
     end
 
-    while row < @cage.length && col < @cage[0].length
-      diag += @cage[row][col]
-      row += 1
-      col += 1
+    # Check diagonals going down and to the left
+    (3..rows-1).each do |start_row|
+      (3..cols-1).each do |start_col|
+        diagonal = (0..3).map { |i| @cage[start_row - i][start_col - i] }.join
+        return coin if diagonal == coin * 4
+      end
     end
 
-    diag.include?(coin*4)
+    false
   end
 
   def right_diag_check(source)
     row, col, coin = source
-    diag = ""
+    rows, cols = @cage.length, @cage[0].length
 
-    # puts "#{row}, #{col}"
-    while row < 5 && col >= 0
-      puts "#{row}, #{col}"
-      row += 1
-      col -= 1
+    # Check diagonals going up and to the right
+    (0..rows-4).each do |start_row|
+      (0..cols-4).each do |start_col|
+        diagonal = (0..3).map { |i| @cage[start_row + i][start_col + i] }.join
+        return true if diagonal == coin * 4
+      end
     end
 
-    # puts "#{row}, #{col}"
-
-    while row >= 0 && col < @cage[0].length
-      # puts "#{row}, #{col}"
-      diag += @cage[row][col]
-      row -= 1
-      col += 1
+    # Check diagonals going down and to the right
+    (3..rows-1).each do |start_row|
+      (0..cols-4).each do |start_col|
+        diagonal = (0..3).map { |i| @cage[start_row - i][start_col + i] }.join
+        return coin if diagonal == coin * 4
+      end
     end
 
-    diag.include?(coin*4)
+    false
   end
 end
 
