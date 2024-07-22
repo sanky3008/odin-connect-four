@@ -1,7 +1,7 @@
 # odin-connect-four
 
 Cage class 
-- initialises cage (7 x 6 grid) - initialize
+- initialises cage (7 col x 6 row grid) - initialize
 - holds the coins (R & B) - state
 - takes in a coin - add_coin
 - knows when game is over - game_over?
